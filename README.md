@@ -1,21 +1,30 @@
 # ExBanking
 
-**TODO: Add description**
+This Application provides simple banking OTP application in Elixir language to perform basic banking operations for users
 
-## Installation
+## Steps to perform
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `ex_banking` to your list of dependencies in `mix.exs`:
+1. Creating a user
+  ExBanking.create_user("newtestuser")
+  OUTPUT: :ok
 
-```elixir
-def deps do
-  [
-    {:ex_banking, "~> 0.1.0"}
-  ]
-end
-```
+2. Deposit ammount in user account
+  ExBanking.deposit("newtestuser", 100, "usd")
+  OUTPUT: {:ok, 100.0}
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/ex_banking](https://hexdocs.pm/ex_banking).
+3. Withdraw ammount from user account
+  ExBanking.withdraw("newtestuser", 5, "usd")
+  OUTPUT: {:ok, 95.0}
 
+  
+4. Getting current balance of user account for a _currency
+  ExBanking.get_balance("newtestuser", "usd")
+  OUTPUT: {:ok, 95.0}
+
+5. Tranfer money from one user to another
+  ExBanking.create_user("newtestuser2")
+  ExBanking.send("newtestuser", "newtestuser2", 5, "usd")
+  OUTPUT: {:ok, 90.0, 5.0}
+
+All the above requests for particular user are limited to 10requests pending at a time and if we get more than that will get the below error:
+{:error, :too_many_requests_to_user}
